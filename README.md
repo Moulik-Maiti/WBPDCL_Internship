@@ -1,58 +1,268 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# WBPDCL Operations & Incident Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web-based operations, incident reporting, and role-based tracking portal developed for the **West Bengal Power Development Corporation Limited (WBPDCL)**. The application streamlines incident submission, audit trail tracking, user access management, and operations analytics.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Technology Stack](#technology-stack)
+- [System Architecture](#system-architecture)
+- [Prerequisites](#prerequisites)
+- [Installation & Setup](#installation--setup)
+- [Database Configuration & Seeding](#database-configuration--seeding)
+- [Role-Based Access Control (RBAC)](#role-based-access-control-rbac)
+- [Project Directory Structure](#project-directory-structure)
+- [Security & Authorization](#security--authorization)
+- [License](#license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Overview
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+The WBPDCL Operations Portal provides a centralized system for tracking technical reports, operational issues, and team resolution metrics. It replaces manual paper-based logging with structured reporting workflows, real-time analytics, automated audit trails, and strict role-based permission enforcement.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Key Features
 
-## Agentic Development
+### 1. Operations & Incident Reporting
+- **Report Lifecycle Tracking**: Create, view, update, and manage operational incident reports with status workflows (`Pending`, `In Progress`, `Completed`, `Rejected`).
+- **Multi-Criteria Filtering**: Filter records by status, keyword search, or dynamic date ranges using Flatpickr.
+- **Excel Export**: Export filtered or full report registries to `.xlsx` format via `maatwebsite/excel`.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### 2. Audit Trail & History Tracking
+- **Automated Logging**: Automatic creation of immutable historical log entries on status changes and report updates.
+- **User Attribution**: Explicit user attribution and timestamps recording who made each change and when.
+- **Remarks & Notes**: Audit records preserve specific contextual remarks entered during workflow transitions.
 
-```bash
-composer require laravel/boost --dev
+### 3. Analytics & Dashboard
+- **Live KPI Metrics**: Real-time counters for Total Reports, Pending Review, Resolution Rate, and Registered Users.
+- **Resolution Trends**: Interactive 7-day grouped bar chart comparing submitted vs. resolved incidents via Chart.js.
+- **Annual Distribution**: 12-month volume trend line chart illustrating submission density.
+- **Team Workload Distribution**: Workload breakdown displaying open incidents per assigned team member.
+- **Live Activity Feed**: Real-time timeline of recent status modifications across the organization.
 
-php artisan boost:install
+### 4. Role-Based Access Control (RBAC)
+- **Granular Permissions**: Fine-grained permissions for reports, users, roles, and system permissions.
+- **Role Hierarchy**: Configurable roles (e.g., Administrator, Manager, Operator) with associated permission matrices powered by `spatie/laravel-permission`.
+
+---
+
+## Technology Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Backend Framework** | Laravel 11 / PHP 8.2+ | Core MVC application and API endpoints |
+| **Database** | MySQL / SQLite | Relational persistence layer |
+| **RBAC Engine** | `spatie/laravel-permission` | Role and permission management with middleware enforcement |
+| **Data Export** | `maatwebsite/excel` | Spreadsheet generation for operational reports |
+| **Frontend Styling** | Tailwind CSS / PostCSS | Utility-first responsive design |
+| **Interactivity** | Alpine.js | UI state handling, mobile drawer, and modals |
+| **Data Visualization** | Chart.js | Interactive operations analytics charts |
+| **Date Pickers** | Flatpickr | Multi-date range selection |
+| **Asset Bundler** | Vite 8 | Frontend asset compilation |
+
+---
+
+## System Architecture
+
+```
+├── Web Requests
+│    ├── Authentication Layer (Laravel Breeze)
+│    ├── Middleware Pipeline (Permission & Role verification)
+│    └── Controller Actions (ReportController, UserController, etc.)
+├── Service & Domain Layer
+│    ├── Eloquent Models (Report, History, Status, User)
+│    ├── RBAC Guard (Spatie Permission Middleware)
+│    └── Export Services (ReportsExport)
+└── Presentation Layer
+     ├── Blade Templates (Responsive Layout with Collapsible Sidebar)
+     ├── Alpine.js Reactive Components
+     └── Chart.js Visualizations
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## Prerequisites
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Before running the application locally, ensure your environment meets the following requirements:
 
-## Code of Conduct
+- **PHP**: `>= 8.2` with `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `bcmath`, `fileinfo`, `gd` extensions enabled
+- **Composer**: `>= 2.2`
+- **Node.js**: `>= 18.x` & **npm**: `>= 9.x`
+- **Database Server**: MySQL 8.x, MariaDB 10.x, or SQLite 3
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Installation & Setup
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd application
+```
+
+### 2. Install PHP Dependencies
+```bash
+composer install --optimize-autoloader
+```
+
+### 3. Install Node Dependencies
+```bash
+npm install
+```
+
+### 4. Environment Configuration
+Copy the example environment file and configure your database parameters:
+```bash
+cp .env.example .env
+```
+
+Open `.env` and verify your database settings:
+```env
+APP_NAME=WBPDCL
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_TIMEZONE=Asia/Kolkata
+APP_URL=http://127.0.0.1:8000
+
+DB_CONNECTION=sqlite
+# Or for MySQL:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=wbpdcl_operations
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+
+### 5. Generate Application Encryption Key
+```bash
+php artisan key:generate
+```
+
+---
+
+## Database Configuration & Seeding
+
+Run the database migrations and seed default system statuses:
+
+```bash
+php artisan migrate --seed
+```
+
+To seed specific operational statuses independently:
+```bash
+php artisan db:seed --class=StatusSeeder
+```
+
+---
+
+## Frontend Compilation
+
+Compile frontend assets for development or production:
+
+```bash
+# Build for production
+npm run build
+
+# Or run the Vite development server with hot-reloading
+npm run dev
+```
+
+---
+
+## Running the Application
+
+Start the local PHP development server:
+
+```bash
+php artisan serve
+```
+
+The portal will be accessible at:
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## Role-Based Access Control (RBAC)
+
+The system implements strict permission checks at both the controller layer via Laravel 11's `HasMiddleware` interface and at the route layer:
+
+| Resource | Required Permission | Action |
+|---|---|---|
+| **Reports** | `view report` | View listing and search results |
+| | `create report` | Create and store new report entries |
+| | `edit report` | Modify existing reports and update workflow status |
+| | `delete report` | Remove report records |
+| **Audit History** | `view history` | Inspect audit trail and status transition history |
+| **Users** | `view users` | Access user directory |
+| | `create users` | Register new team members |
+| | `edit users` | Modify user credentials and assign roles |
+| | `delete users` | Remove user access |
+| **Roles** | `view role` | List roles and assigned permissions |
+| | `create roles` | Define new system roles |
+| | `edit roles` | Update role permission matrices |
+| | `delete roles` | Remove roles |
+| **Permissions** | `view permissions` | Inspect all registered permissions |
+| | `create permissions` | Define new permission identifiers |
+| | `edit permissions` | Modify permission parameters |
+| | `delete permissions` | Remove permission definitions |
+
+---
+
+## Project Directory Structure
+
+```
+application/
+├── app/
+│   ├── Exports/               # Excel export definitions (ReportsExport)
+│   ├── Http/
+│   │   ├── Controllers/       # Controller logic (Report, History, User, Role, etc.)
+│   │   └── Requests/          # Form request validations
+│   ├── Models/                # Eloquent models (Report, History, Status, User)
+│   └── Providers/             # Service providers
+├── bootstrap/
+│   └── app.php                # Application bootstrapping and middleware configuration
+├── config/                    # Application and package configurations
+├── database/
+│   ├── migrations/            # Database schema definitions
+│   └── seeders/               # Status and initial database seeders
+├── public/
+│   └── images/                # Static assets, including the WBPDCL logo
+├── resources/
+│   ├── css/                   # Tailwind CSS stylesheets
+│   ├── js/                    # Alpine.js and JavaScript entry points
+│   └── views/
+│       ├── layouts/           # Application master layouts, navigation, and sidebar
+│       ├── Report/            # Report views (list, create, edit)
+│       ├── history/           # Audit trail and history views
+│       ├── user/              # User management views
+│       ├── roles/             # Role management views
+│       └── permission/        # Permission management views
+├── routes/
+│   ├── auth.php               # Authentication routes
+│   └── web.php                # Web routes and resource mappings
+└── vite.config.js             # Vite asset build configuration
+```
+
+---
+
+## Security & Authorization
+
+- **CSRF Protection**: All form submissions and AJAX calls require valid CSRF tokens (`@csrf` / `x-csrf-token`).
+- **SQL Injection Prevention**: Built entirely with Eloquent ORM and parameterized queries.
+- **Controller Middleware**: Authorization checks enforced on controller dispatch using Laravel 11's `HasMiddleware` contract.
+- **Password Hashing**: User authentication passwords are encrypted using Bcrypt (`Hash::make`).
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This software is developed and maintained for the internal operations of the **West Bengal Power Development Corporation Limited (WBPDCL)**. Unauthorized distribution or reproduction is prohibited.
