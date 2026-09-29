@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Permission routes
     Route::get('/permission/create', [PermissionController::class, 'create'])->name('permission.create');
     Route::post('/permission', [PermissionController::class, 'store'])->name('permission.store');
     Route::get('/permission', [PermissionController::class, 'index'])->name('permission.index');
