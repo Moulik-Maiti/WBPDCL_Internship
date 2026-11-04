@@ -52,7 +52,7 @@ The WBPDCL Operations Portal provides a centralized system for tracking technica
 
 ---
 
-##🧠 Engineering Focus
+## Engineering Focus
 
 This project involved working with relational database design, permission-based access control, report lifecycle management, audit logging, and integrating backend functionality with a responsive web interface.
 
