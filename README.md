@@ -1,6 +1,6 @@
 # WBPDCL Operations & Incident Management System
 
-A web-based operations, incident reporting, and role-based tracking portal developed for the **West Bengal Power Development Corporation Limited (WBPDCL)**. The application streamlines incident submission, audit trail tracking, user access management, and operations analytics.
+A role-based web application developed to digitize operational incident reporting, workflow tracking, and audit management for The West Bengal Power Development Corporation Limited (WBPDCL).
 
 ---
 
@@ -51,11 +51,15 @@ The WBPDCL Operations Portal provides a centralized system for tracking technica
 
 ---
 
+##🧠 Engineering Focus
+
+This project involved working with relational database design, permission-based access control, report lifecycle management, audit logging, and integrating backend functionality with a responsive web interface.
+
 ## Technology Stack
 
 | Layer | Technology | Purpose |
 |---|---|---|
-| **Backend Framework** | Laravel 11 / PHP 8.2+ | Core MVC application and API endpoints |
+| **Backend Framework** | Laravel 13 / PHP 8.3 | Core MVC application and API endpoints |
 | **Database** | MySQL / SQLite | Relational persistence layer |
 | **RBAC Engine** | `spatie/laravel-permission` | Role and permission management with middleware enforcement |
 | **Data Export** | `maatwebsite/excel` | Spreadsheet generation for operational reports |
@@ -265,4 +269,4 @@ application/
 
 ## License
 
-This software is developed and maintained for the internal operations of the **West Bengal Power Development Corporation Limited (WBPDCL)**. Unauthorized distribution or reproduction is prohibited.
+This software is developed and maintained for the internal operations of the ** The West Bengal Power Development Corporation Limited (WBPDCL)**. Unauthorized distribution or reproduction is prohibited.
