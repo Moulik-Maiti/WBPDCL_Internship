@@ -9,6 +9,7 @@ A role-based web application developed to digitize operational incident reportin
 - [Overview](#overview)
 - [Key Features](#key-features)
 - [Engineering Focus](#Engineering-Focus)
+- [Prototype Images](#Prototype-Images)
 - [Technology Stack](#technology-stack)
 - [System Architecture](#system-architecture)
 - [Prerequisites](#prerequisites)
